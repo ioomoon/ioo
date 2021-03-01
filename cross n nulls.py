@@ -6,6 +6,8 @@ board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
 def display():
     global board
     os.system('cls')
+    print("*** Крестики-нолики ***")
+    print("Поле 3x3. Для хода каждому игроку предлагается ввести координаты клетки (строка и столбец).")
     # Очищаем консоль
     print("  0 1 2")
     for i, line in enumerate(board):
@@ -56,14 +58,18 @@ def game_move_x():
     try:
         if board[x][y] == 0:
             board[x][y] = 1
-        display()
-        if who_is_winner():
-            print(who_is_winner())
+            display()
+            if who_is_winner():
+                print(who_is_winner())
+            else:
+                game_move_o()
         else:
-            game_move_o()
+            print("Занято. Попробуйте снова.")
+            game_move_x()
     except (ValueError, IndexError):
         print("Вы ввели неверные координаты. Попробуйте снова.")
         game_move_x()
+
 
 # Ход ноликом
 def game_move_o():
@@ -72,14 +78,18 @@ def game_move_o():
     try:
         if board[i][j] == 0:
             board[i][j] = -1
-        display()
-        if who_is_winner():
-            print(who_is_winner())
+            display()
+            if who_is_winner():
+                print(who_is_winner())
+            else:
+                game_move_x()
         else:
-            game_move_x()
+            print("Занято. Попробуйте снова.")
+            game_move_o()
     except (ValueError, IndexError):
         print("Вы ввели неверные координаты. Попробуйте снова.")
-        game_move_x()
+        game_move_o()
+
 
 
 display()
