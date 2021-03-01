@@ -1,13 +1,12 @@
-# Задачи: функция для принятия ходов
+import os
 board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
-# board = [[0, 0, 1], [-1, 1, 0], [1, -1, 1]]
-# board = [[0, 0, 0], [0, 0, 0], [1, 1, 1]]
-# board = [[1, 0, 1], [-1, 1, 0], [-1, -1, 1]]
 
 
 # Отрисовывает поле
 def display():
     global board
+    os.system('cls')
+    # Очищаем консоль
     print("  0 1 2")
     for i, line in enumerate(board):
         s = str(i) + " "
@@ -25,6 +24,7 @@ def display():
 # Определяет победителя
 def who_is_winner():
     global board
+    # Диагонали
     sum_di_left = 0
     sum_di_right = 0
     for x in range(3):
@@ -35,7 +35,6 @@ def who_is_winner():
 
         for y in range(3):
             sum_row += board[y][x]
-
         if sum_line == 3 or sum_row == 3:
             return "Победил x"
         elif sum_line == -3 or sum_row == -3:
@@ -50,28 +49,36 @@ def who_is_winner():
         return "Победил o"
 
 
+# Ход крестиком
 def game_move_x():
     move_x = input("Введите координаты хода х-ом через пробел: ")
     x, y = map(int, move_x.split())
+    try:
+        if board[x][y] == 0:
+            board[x][y] = 1
+        display()
+        if who_is_winner():
+            print(who_is_winner())
+        else:
+            game_move_o()
+    except (ValueError, IndexError):
+        print("Вы ввели неверные координаты. Попробуйте снова.")
+        game_move_x()
 
-    if board[x][y] == 0:
-        board[x][y] = 1
-    display()
-    if who_is_winner():
-        print(who_is_winner())
-    else:
-        game_move_y()
-
-
-def game_move_y():
+# Ход ноликом
+def game_move_o():
     move_y = input("Введите координаты хода y-ом через пробел: ")
     i, j = map(int, move_y.split())
-    if board[i][j] == 0:
-        board[i][j] = -1
-    display()
-    if who_is_winner():
-        print(who_is_winner())
-    else:
+    try:
+        if board[i][j] == 0:
+            board[i][j] = -1
+        display()
+        if who_is_winner():
+            print(who_is_winner())
+        else:
+            game_move_x()
+    except (ValueError, IndexError):
+        print("Вы ввели неверные координаты. Попробуйте снова.")
         game_move_x()
 
 
