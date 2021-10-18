@@ -1,15 +1,12 @@
-# Создадим класс Queue - нужная нам очередь
 class Queue:
-    # Конструктор нашего класса, в нём происходит нужная инициализация объекта
     def __init__(self, max_size):
         self.max_size = max_size  # размер очереди
-        self.task_num = 0  # будем хранить сквозной номер задачи
+        self.task_num = 0  # сквозной номер задачи
 
         self.tasks = [0 for _ in range(self.max_size)]  # инициализируем список с нулевыми элементами
         self.head = 0  # указатель на начало очереди
         self.tail = 0  # указатель на элемент следующий за концом очереди
 
-    # !!! Класс далее нужно дополнить методами !!!
     def is_empty(self):
         return self.head == self.tail and self.tasks[self.tail] == 0
 
@@ -42,7 +39,7 @@ class Queue:
         if self.head >= self.max_size:
             self.head = 0
 
-# Используем класс
+
 size = int(input("Определите размер очереди: "))
 q = Queue(size)
 
